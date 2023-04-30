@@ -17,7 +17,7 @@ resource "aws_subnet" "private" {
   vpc_id            = var.vpc_id
   availability_zone = each.key
   cidr_block        = (length(var.subnet_cidr_block_list) == 0 ? 
-                      cidrsubnet(var.cidr_block, ceil(log(var.max_subnets, 2)), each.value) : 
+                      [cidrsubnet(var.cidr_block, ceil(log(var.max_subnets, 2)), each.value)] : 
                       var.subnet_cidr_block_list[each.value])
 
   tags = merge(

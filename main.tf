@@ -15,4 +15,11 @@ locals {
     subnet_ipv6_cidr_block = local.public_ipv6_enabled ? aws_subnet.public[az].ipv6_cidr_block : null
     }
   }
+
+  route_tables_id_output_map = { for az in(local.enabled ? var.availability_zones : []) : az => {
+    route_table_id    = local.public_enabled ? aws_route_table.public[az].id : aws_route_table.private[az].id
+    az = az 
+    type            = local.public_enabled && "public" ? "private"
+    }
+  }
 }

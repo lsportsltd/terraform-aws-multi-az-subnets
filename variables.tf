@@ -139,3 +139,5 @@ variable "is_nat" {
 variable "subnet_cidr_block_list" {
   default = []
 }
+
+variable "subnets_exclude_tags" { default = {} }
